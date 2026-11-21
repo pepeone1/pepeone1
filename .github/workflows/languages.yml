@@ -6,20 +6,20 @@ on:
   schedule:
     - cron: "0 8 * * *"
 
+permissions:
+  contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Generate Language Stats
-        uses: vn7n24fzkq/github-profile-summary-cards@release
-        env:
-          GITHUB_TOKEN: ${{ secrets.SUMMARY_GITHUB_TOKEN }}
+      - uses: lowlighter/metrics@latest
         with:
-          USERNAME: ${{ github.repository_owner }}
-          BRANCH_NAME: main
-          THEME: github
+          token: ${{ secrets.SUMMARY_GITHUB_TOKEN }}
+          user: pepeone1
+          filename: metrics-languages.svg
+          base: ""
+          plugin_languages: yes
+          plugin_languages_indepth: yes
+          plugin_languages_limit: 8
+          commits_authoring: pepeone1
